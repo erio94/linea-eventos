@@ -87,6 +87,13 @@ function eliminar(idx) {
 
 function editar(idx) {
     const ed = document.querySelectorAll('.event-details')[idx];
+
+    const existingForm = ed.querySelector('.edit-form'); // Verifica si ya existe un formulario
+
+    if (existingForm) {
+        // Si ya hay un formulario de edición, no hacer nada
+        return;
+    }
     const ev = eventos[idx];
     const f = document.createElement('div');
     f.className = 'edit-form';
