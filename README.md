@@ -16,5 +16,8 @@ Este proyecto es una aplicación web que permite visualizar, crear, editar, y el
 - CSS3
 - JavaScript
 
+## Pagina de visualización
+- [Ver aquí](https://erio94.github.io/linea-eventos/)
+
 ## Autor
 [erio94](https://github.com/erio94)
