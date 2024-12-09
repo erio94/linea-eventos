@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Línea del Tiempo para Eventos</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <h1>Mis Eventos</h1>
+    <div class="controls">
+        <form id="createForm">
+            <input type="text" id="titulo" placeholder="Título" required>
+            <input type="date" id="fecha" required>
+            <input type="time" id="hora" required>
+            <textarea id="desc" placeholder="Descripción"></textarea>
+            <button type="submit">Crear Evento</button>
+        </form>
+
+        <div class="io-buttons">
+            <button id="clearBtn">Borrar Todos</button>
+            <button id="exportBtn">Exportar JSON</button>
+            <input type="file" id="importFile" accept=".json" style="display:none;">
+            <button id="importBtn">Importar JSON</button>
+        </div>
+    </div>
+
+    <!-- Modal para confirmar la acción -->
+    <div id="clearModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Confirmación</h3>
+            <p>¿Estás seguro de que quieres borrar todos los eventos? Esta acción no se puede deshacer.</p>
+            <div class="modal-actions">
+                <button id="confirmClear" class="confirm">Sí, borrar</button>
+                <button id="cancelClear" class="cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="container"></div>
+
+    <footer>
+        <p>Desarrollado por <a href="https://github.com/erio94" target="_blank">erio94</a></p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
