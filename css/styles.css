@@ -1,66 +1,57 @@
-@media (max-width: 600px) {
-    .timeline {
-        flex-wrap: wrap;
-        /* Permitir que los eventos salten de línea */
-        justify-content: center;
-        /* Centrar los eventos */
+
+@media (max-width: 727px) {
+    form {
+        width: 94% !important;
+        margin: 20px !important;
     }
 
     .event {
-        flex: 0 0 calc(100% - 40px);
-        /* Cada evento casi del ancho completo con un margen */
-        max-width: 300px;
-        /* Ancho máximo fijo si es necesario */
-        margin: 10px 20px;
-        /* Espaciado horizontal */
-        box-sizing: border-box;
+        margin: 0 !important;
     }
 
-    .event-details {
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
-        overflow: auto;
-        /* Si el contenido es muy grande, se agregará scroll interno */
+    .event-details p {
+        word-wrap: break-word;
+        /* Ajusta palabras largas */
+        overflow-wrap: break-word;
+        /* Permite saltos de línea dentro de palabras */
+        white-space: normal;
+        /* Asegúrate de que las líneas se ajusten al ancho del contenedor */
+    }
+
+    button[type="submit"] {
+        width: 55%;
+        /* Botón más grande y legible */
+        padding: 12px;
     }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
-    .timeline {
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-        /* Distribuye uniformemente los eventos */
+    form {
+        width: 60% !important;
+        margin: 20px !important;
+        max-width: 90% !important;
     }
 
     .event {
-        /* Si queremos 3 eventos por línea en iPad:
-           3 eventos * ~33% cada uno = 99% (con algo de espacio)
-        */
-        flex: 0 0 30%;
-        /* Cada evento ocupa ~30% del ancho */
-        max-width: 250px;
-        /* Ajuste según tu diseño */
-        margin: 10px;
-        box-sizing: border-box;
-    }
-
-    .event-details {
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
-    /* Ajustes a la tipografía o al padding si es necesario */
-    .event-details h3 {
-        font-size: 16px;
+        margin: 0 4% !important;
     }
 
     .event-details p {
-        font-size: 14px;
+        word-wrap: break-word;
+        /* Ajusta palabras largas */
+        overflow-wrap: break-word;
+        /* Permite saltos de línea dentro de palabras */
+        white-space: normal;
+        /* Asegúrate de que las líneas se ajusten al ancho del contenedor */
     }
+
+    button[type="submit"] {
+        width: 55%;
+        /* Botón más grande y legible */
+        padding: 12px;
+    }
+
 }
-
-
 
 body {
     font-family: sans-serif;
@@ -221,6 +212,16 @@ button#importBtn {
     border: 1px solid #333;
 }
 
+
+.event-details p {
+    word-wrap: break-word;
+    /* Ajusta palabras largas */
+    overflow-wrap: break-word;
+    /* Permite saltos de línea dentro de palabras */
+    white-space: normal;
+    /* Asegúrate de que las líneas se ajusten al ancho del contenedor */
+}
+
 .actions {
     text-align: right;
     margin-top: 5px;
@@ -269,7 +270,7 @@ button#importBtn {
     border: 1px solid #444;
 }
 
-.edit-form textarea{
+.edit-form textarea {
     height: 100px;
     max-width: 100%;
     max-height: 400px;

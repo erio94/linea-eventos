@@ -19,13 +19,13 @@ function render() {
     const width = window.innerWidth;
 
     if (width <= 600) { // Móvil
-        eventsPerLine = 2;
+        eventsPerLine = 1;
     } else if (width <= 1024) { // Tablet
-        eventsPerLine = 3;
+        eventsPerLine = 2;
     } else if (width <= 1440) { // Portátil
-        eventsPerLine = 4;
+        eventsPerLine = 3;
     } else { // Monitor
-        eventsPerLine = 5;
+        eventsPerLine = 4;
     }
 
     // Dividir los eventos en subconjuntos según eventsPerLine
