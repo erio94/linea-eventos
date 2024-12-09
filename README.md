@@ -17,4 +17,4 @@ Este proyecto es una aplicación web que permite visualizar, crear, editar, y el
 - JavaScript
 
 ## Autor
-[Tu nombre o usuario de GitHub](https://github.com/erio94)
+[erio94](https://github.com/erio94)
