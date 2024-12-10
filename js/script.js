@@ -10,26 +10,27 @@ function sortEventos() {
     });
 }
 
+// Determinar número de eventos por línea una sola vez (puedes ajustarlo según tu preferencia)
+let eventsPerLine = determinarEventsPerLine();
+
+function determinarEventsPerLine() {
+    const width = window.innerWidth;
+    if (width <= 600) { 
+        return 1; 
+    } else if (width <= 1024) { 
+        return 2; 
+    } else if (width <= 1440) { 
+        return 3; 
+    } else { 
+        return 4; 
+    }
+}
+
 function render() {
     const c = document.getElementById('container');
     c.innerHTML = '';
     sortEventos();
 
-    // Determinar el número de eventos por línea según el ancho de la ventana
-    let eventsPerLine;
-    const width = window.innerWidth;
-
-    if (width <= 600) { // Móvil
-        eventsPerLine = 1;
-    } else if (width <= 1024) { // Tablet
-        eventsPerLine = 2;
-    } else if (width <= 1440) { // Portátil
-        eventsPerLine = 3;
-    } else { // Monitor
-        eventsPerLine = 4;
-    }
-
-    // Dividir los eventos en subconjuntos según eventsPerLine
     for (let i = 0; i < eventos.length; i += eventsPerLine) {
         const slice = eventos.slice(i, i + eventsPerLine);
         const line = document.createElement('div');
@@ -56,14 +57,9 @@ function render() {
     }
 }
 
-// Escuchar cambios en el tamaño de la ventana para redibujar dinámicamente
-window.addEventListener('resize', () => {
-    render(); // Vuelve a renderizar cuando se cambie el tamaño de la ventana
-});
-
 function toggleDesc(b) {
     const d = b.parentNode.querySelector('.event-details');
-    d.style.display = d.style.display === 'block' ? 'none' : 'block';
+    d.style.display = (d.style.display === 'block') ? 'none' : 'block';
 }
 
 function eliminar(idx) {
@@ -76,11 +72,9 @@ function eliminar(idx) {
 
 function editar(idx) {
     const ed = document.querySelectorAll('.event-details')[idx];
-    const existingForm = ed.querySelector('.edit-form'); // Verifica si ya existe un formulario
+    const existingForm = ed.querySelector('.edit-form');
+    if (existingForm) return;
 
-    if (existingForm) {
-        return; // Si ya hay un formulario de edición, no hacer nada
-    }
     const ev = eventos[idx];
     const f = document.createElement('div');
     f.className = 'edit-form';
@@ -158,16 +152,16 @@ document.getElementById('importFile').addEventListener('change', (e) => {
     reader.readAsText(file);
 });
 
-// Modal para borrar todos los eventos
+// Modal Borrar Todos
 document.getElementById('clearBtn').addEventListener('click', () => {
     const modal = document.getElementById('clearModal');
-    modal.style.display = 'flex';
+    modal.classList.remove('oculto');
     document.body.style.overflow = 'hidden';
 });
 
 document.getElementById('cancelClear').addEventListener('click', () => {
     const modal = document.getElementById('clearModal');
-    modal.style.display = 'none';
+    modal.classList.add('oculto');
     document.body.style.overflow = 'auto';
 });
 
@@ -176,8 +170,10 @@ document.getElementById('confirmClear').addEventListener('click', () => {
     guardar();
     render();
     const modal = document.getElementById('clearModal');
-    modal.style.display = 'none';
+    modal.classList.add('oculto');
     document.body.style.overflow = 'auto';
 });
 
-render();
+document.addEventListener('DOMContentLoaded', () => {
+    render();
+});
