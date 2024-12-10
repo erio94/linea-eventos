@@ -1,29 +1,45 @@
-
 @media (max-width: 727px) {
-    form {
-        width: 94% !important;
-        margin: 20px !important;
+    body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden; /* Evita desbordes horizontales */
     }
 
-    .event {
-        margin: 0 !important;
+    form {
+        width: 90% !important;
+        margin: 20px auto; /* Centrar formulario */
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+        width: 60%; /* Botón más ancho */
+        padding: 15px;
+        font-size: 16px; /* Fuente más grande */
     }
 
     .event-details p {
         word-wrap: break-word;
-        /* Ajusta palabras largas */
         overflow-wrap: break-word;
-        /* Permite saltos de línea dentro de palabras */
         white-space: normal;
-        /* Asegúrate de que las líneas se ajusten al ancho del contenedor */
+        font-size: 14px; /* Fuente más legible */
     }
 
-    button[type="submit"] {
-        width: 55%;
-        /* Botón más grande y legible */
-        padding: 12px;
+    .event {
+        margin: 10px 0; /* Más espacio entre eventos */
+    }
+
+    .bubble {
+        width: 50px;
+        height: 50px;
+        font-size: 14px;
+    }
+
+    .modal-content {
+        width: 90%; /* Ajustar modal al ancho del dispositivo */
     }
 }
+
 
 @media (min-width: 768px) and (max-width: 1024px) {
     form {
