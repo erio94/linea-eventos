@@ -10,7 +10,7 @@ function sortEventos() {
     });
 }
 
-// Determinar número de eventos por línea una sola vez (puedes ajustarlo según tu preferencia)
+// Determinar el número de eventos por línea al cargar (no en cada resize)
 let eventsPerLine = determinarEventsPerLine();
 
 function determinarEventsPerLine() {
@@ -27,6 +27,9 @@ function determinarEventsPerLine() {
 }
 
 function render() {
+    // Guardar posición actual de scroll
+    const currentScroll = window.scrollY;
+
     const c = document.getElementById('container');
     c.innerHTML = '';
     sortEventos();
@@ -55,18 +58,26 @@ function render() {
 
         c.appendChild(line);
     }
+
+    // Restaurar la posición de scroll luego de re-renderizar
+    window.scrollTo(0, currentScroll);
 }
 
 function toggleDesc(b) {
     const d = b.parentNode.querySelector('.event-details');
     d.style.display = (d.style.display === 'block') ? 'none' : 'block';
+    // Opcionalmente, podrías también mantener el scroll tras abrir/cerrar detalles,
+    // pero generalmente aquí no es necesario ya que no se re-renderiza todo.
 }
 
 function eliminar(idx) {
     if (confirm('¿Eliminar este evento?')) {
+        // Guardar scroll antes de modificar
+        const currentScroll = window.scrollY;
         eventos.splice(idx, 1);
         guardar();
         render();
+        window.scrollTo(0, currentScroll);
     }
 }
 
@@ -89,6 +100,7 @@ function editar(idx) {
 }
 
 function guardarEdicion(idx) {
+    const currentScroll = window.scrollY;
     const et = document.getElementById('etitulo').value;
     const ef = document.getElementById('efecha').value;
     const eh = document.getElementById('ehora').value;
@@ -96,6 +108,7 @@ function guardarEdicion(idx) {
     eventos[idx] = { titulo: et, fecha: ef, hora: eh, desc: ed };
     guardar();
     render();
+    window.scrollTo(0, currentScroll);
 }
 
 document.getElementById('createForm').addEventListener('submit', e => {
@@ -106,9 +119,11 @@ document.getElementById('createForm').addEventListener('submit', e => {
     const d = document.getElementById('desc').value;
 
     if (t && f && h) {
+        const currentScroll = window.scrollY;
         eventos.push({ titulo: t, fecha: f, hora: h, desc: d });
         guardar();
         render();
+        window.scrollTo(0, currentScroll);
         e.target.reset();
     } else {
         alert("Por favor, completa todos los campos obligatorios.");
@@ -139,9 +154,11 @@ document.getElementById('importFile').addEventListener('change', (e) => {
         try {
             const importedEvents = JSON.parse(evt.target.result);
             if (Array.isArray(importedEvents)) {
+                const currentScroll = window.scrollY;
                 eventos = importedEvents;
                 guardar();
                 render();
+                window.scrollTo(0, currentScroll);
             } else {
                 alert('El archivo JSON no contiene un arreglo de eventos válido.');
             }
@@ -166,9 +183,11 @@ document.getElementById('cancelClear').addEventListener('click', () => {
 });
 
 document.getElementById('confirmClear').addEventListener('click', () => {
+    const currentScroll = window.scrollY;
     eventos = [];
     guardar();
     render();
+    window.scrollTo(0, currentScroll);
     const modal = document.getElementById('clearModal');
     modal.classList.add('oculto');
     document.body.style.overflow = 'auto';
