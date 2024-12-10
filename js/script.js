@@ -9,6 +9,7 @@ function sortEventos() {
         return new Date(a.fecha + " " + a.hora) - new Date(b.fecha + " " + b.hora);
     });
 }
+
 function render() {
     const c = document.getElementById('container');
     c.innerHTML = '';
@@ -60,18 +61,6 @@ window.addEventListener('resize', () => {
     render(); // Vuelve a renderizar cuando se cambie el tamaño de la ventana
 });
 
-function sortEventos() {
-    eventos.sort((a, b) => {
-        return new Date(a.fecha + " " + a.hora) - new Date(b.fecha + " " + b.hora);
-    });
-}
-
-function toggleDesc(b) {
-    const d = b.parentNode.querySelector('.event-details');
-    d.style.display = d.style.display === 'block' ? 'none' : 'block';
-}
-
-
 function toggleDesc(b) {
     const d = b.parentNode.querySelector('.event-details');
     d.style.display = d.style.display === 'block' ? 'none' : 'block';
@@ -87,12 +76,10 @@ function eliminar(idx) {
 
 function editar(idx) {
     const ed = document.querySelectorAll('.event-details')[idx];
-
     const existingForm = ed.querySelector('.edit-form'); // Verifica si ya existe un formulario
 
     if (existingForm) {
-        // Si ya hay un formulario de edición, no hacer nada
-        return;
+        return; // Si ya hay un formulario de edición, no hacer nada
     }
     const ev = eventos[idx];
     const f = document.createElement('div');
@@ -123,10 +110,15 @@ document.getElementById('createForm').addEventListener('submit', e => {
     const f = document.getElementById('fecha').value;
     const h = document.getElementById('hora').value;
     const d = document.getElementById('desc').value;
-    eventos.push({ titulo: t, fecha: f, hora: h, desc: d });
-    guardar();
-    render();
-    e.target.reset();
+
+    if (t && f && h) {
+        eventos.push({ titulo: t, fecha: f, hora: h, desc: d });
+        guardar();
+        render();
+        e.target.reset();
+    } else {
+        alert("Por favor, completa todos los campos obligatorios.");
+    }
 });
 
 // Exportar JSON
@@ -166,26 +158,26 @@ document.getElementById('importFile').addEventListener('change', (e) => {
     reader.readAsText(file);
 });
 
-
-// Mostrar el modal cuando se presiona el botón "Borrar Todos"
+// Modal para borrar todos los eventos
 document.getElementById('clearBtn').addEventListener('click', () => {
     const modal = document.getElementById('clearModal');
-    modal.style.display = 'flex'; // Mostrar el modal
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
 });
 
-// Confirmar la eliminación de todos los eventos
-document.getElementById('confirmClear').addEventListener('click', () => {
-    eventos = []; // Vaciar el array de eventos
-    guardar(); // Guardar el cambio en localStorage
-    render(); // Volver a renderizar la línea del tiempo
-    document.getElementById('clearModal').style.display = 'none'; // Ocultar el modal
-});
-
-// Cancelar la acción y cerrar el modal
 document.getElementById('cancelClear').addEventListener('click', () => {
     const modal = document.getElementById('clearModal');
-    modal.style.display = 'none'; // Ocultar el modal
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
 });
 
+document.getElementById('confirmClear').addEventListener('click', () => {
+    eventos = [];
+    guardar();
+    render();
+    const modal = document.getElementById('clearModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+});
 
 render();
